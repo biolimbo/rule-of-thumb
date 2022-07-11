@@ -1,0 +1,14 @@
+// jsconfig.json
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			// name and path to aliases
+			"@lib": ["src/lib"],
+			"@components": ["src/lib/components"],
+			"@icons": ["src/lib/icons"],
+			"@utils": ["src/lib/utils"]
+		}
+	},
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte"]
+}
