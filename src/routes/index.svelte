@@ -1,5 +1,6 @@
 <script>
 	import HeroCard from '@components/HeroCard.svelte';
+	import Card from '@components/Card.svelte';
 
 	import { celebrities } from '@contexts/celebrities';
 </script>
@@ -17,5 +18,15 @@
 			out and speak freely. It’s easy: You share your opinion, we analyze and put the data in a
 			public report.
 		</p>
+	</div>
+</div>
+
+<div class="container overflow-hidden">
+	<div class="w-full flex overflow-x-auto overflow-y-hidden md:flex-col gap-4">
+		{#each celebrities as celebrity, index}
+			{#if index !== 0}
+				<Card class="" {celebrity} />
+			{/if}
+		{/each}
 	</div>
 </div>

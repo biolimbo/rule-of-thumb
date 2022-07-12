@@ -4,7 +4,7 @@
 </script>
 
 <header
-	class="text-white min-h-[120px] md:min-h-[140px] lg:min-h-[180px] bg-gradient-to-b from-black/70 flex justify-center fixed top-0 left-0 right-0 z-50"
+	class="text-white min-h-[120px] md:min-h-[140px] lg:min-h-[180px] bg-gradient-to-b from-black/70 flex justify-center absolute top-0 left-0 right-0 z-50"
 >
 	<nav class="container flex justify-between items-start pt-7 md:pt-9 lg:pt-12">
 		<p class="text-2xl">Rule of thumb.</p>
