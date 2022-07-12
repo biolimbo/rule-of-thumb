@@ -7,6 +7,18 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				sans: ['Lato', ...defaultTheme.fontFamily.sans]
+			},
+			colors: {
+				thumbGray: {
+					DEFAULT: '#464646',
+					300: '#EBEBEB'
+				},
+				thumbEmerald: {
+					DEFAULT: '#3CBBB4'
+				},
+				thumbYellow: {
+					DEFAULT: '#F9AD1D'
+				}
 			}
 		}
 	},

@@ -9,6 +9,8 @@ const config = {
 			// these are the aliases and paths to them
 			'@lib': path.resolve('./src/lib'),
 			'@components': path.resolve('./src/lib/components'),
+
+			'@contexts': path.resolve('./src/lib/contexts'),
 			'@icons': path.resolve('./src/lib/icons'),
 			'@utils': path.resolve('./src/lib/utils')
 		}

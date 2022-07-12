@@ -3,7 +3,7 @@
 	import TwitterIcon from '@icons/Twitter.svelte';
 </script>
 
-<footer class=" px-3 md:px-5 w-full max-w-6xl mx-auto">
+<footer class="container">
 	<div
 		class="w-full flex justify-between items-end md:items-center border-dashed border-t-2 border-black py-4 md:py-9"
 	>

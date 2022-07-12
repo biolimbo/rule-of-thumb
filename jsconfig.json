@@ -6,6 +6,7 @@
 			// name and path to aliases
 			"@lib": ["src/lib"],
 			"@components": ["src/lib/components"],
+			"@contexts": ["src/lib/contexts"],
 			"@icons": ["src/lib/icons"],
 			"@utils": ["src/lib/utils"]
 		}
