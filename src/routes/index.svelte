@@ -1,6 +1,7 @@
 <script>
 	import HeroCard from '@components/HeroCard.svelte';
 	import Card from '@components/Card.svelte';
+	import Img from '@components/Img.svelte';
 
 	import { celebrities } from '@contexts/celebrities';
 </script>
@@ -28,5 +29,22 @@
 				<Card class="" {celebrity} />
 			{/if}
 		{/each}
+	</div>
+</div>
+
+<div class="container mt-6 md:mt-9">
+	<div
+		class="relative p-5 md:p-9 flex flex-col md:flex-row md:justify-between md:items-center gap-4"
+	>
+		<Img
+			class="absolute w-full h-full top-0 left-0 object-cover object-center opacity-30"
+			path="/assets/images/bg/bg-people"
+			alt="Rule of Thumb"
+		/>
+
+		<p class="font-normal text-2xl text-center md:text-left">
+			Is there anyone else you would want us to add?
+		</p>
+		<button class=" text-2xl border border-black text-black px-10 py-2"> Submit a name </button>
 	</div>
 </div>

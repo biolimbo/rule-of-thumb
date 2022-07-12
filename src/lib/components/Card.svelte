@@ -39,12 +39,12 @@
 		<div class="flex flex-col items-end ml-auto">
 			<p class="text-xs font-medium">1 month ago in Entertainment</p>
 			<div class="flex mt-2 gap-3">
-				<div class="p-3 md:p-4 bg-thumbEmerald flex justify-center items-center">
+				<button class="p-3 md:p-4 bg-thumbEmerald flex justify-center items-center">
 					<ThumbsUp class="w-4 lg:w-5 h-auto" />
-				</div>
-				<div class="p-3 md:p-4 bg-thumbYellow flex justify-center items-center">
+				</button>
+				<button class="p-3 md:p-4 bg-thumbYellow flex justify-center items-center">
 					<ThumbsUp class="w-4 lg:w-5 h-auto" />
-				</div>
+				</button>
 				<button class="border border-white bg-black/60 text-white px-4 py-2 w-max">
 					Vote now
 				</button>

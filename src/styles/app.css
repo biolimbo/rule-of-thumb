@@ -16,7 +16,7 @@
 	}
 
 	.container {
-		@apply max-w-6xl px-3 md:px-5 w-full mx-auto;
+		@apply !max-w-6xl px-3 md:px-5 w-full mx-auto;
 	}
 
 	h1 {
