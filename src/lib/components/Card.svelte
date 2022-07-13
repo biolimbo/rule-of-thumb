@@ -53,13 +53,13 @@
 	</div>
 
 	<div
-		class={`relative mb-auto mt-32  z-20 flex flex-col  w-full px-12  text-white ${
+		class={`relative mt-auto mb-24 md:mb-[4.5rem] z-20 flex flex-col  w-full px-12  text-white ${
 			mode == 'grid' ? ' ' : 'md:mt-0 md:flex-row md:pr-4 md:pl-18 md:pt-2 lg:pt-4'
 		}`}
 	>
-		<div class={`flex flex-col  mr-8 ${mode == 'grid' ? ' ' : 'md:ml-40 lg:ml-56'}`}>
-			<h3 class="">{celebrity.name}</h3>
-			<p class="mb-3 line-clamp-2">
+		<div class={`flex flex-col mr-8 ${mode == 'grid' ? ' ' : 'md:ml-40 lg:ml-56'}`}>
+			<h3 class="line-clamp-2">{celebrity.name}</h3>
+			<p class="mb-3 md:mt-2 line-clamp-2">
 				{celebrity.description}
 			</p>
 		</div>
