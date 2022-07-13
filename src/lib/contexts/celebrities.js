@@ -1,3 +1,5 @@
+import { writable } from 'svelte/store';
+
 const mockCelebrities = [
 	{
 		name: 'Pope Francis',
@@ -6,8 +8,6 @@ const mockCelebrities = [
 		category: 'religion',
 		picture: 'pope-francis',
 		lastUpdated: '2020-03-10T23:08:57.892Z',
-		publishDate: '2022-05-10T23:08:57.892Z',
-		closeDate: '2022-06-10T23:08:57.892Z',
 		wiki: 'https://wikipedia.org/wiki/Pope_Francis',
 		votes: {
 			positive: 23,
@@ -21,8 +21,6 @@ const mockCelebrities = [
 		category: 'entertainment',
 		picture: 'kanye',
 		lastUpdated: '2020-03-10T23:08:57.892Z',
-		publishDate: '2022-05-09T23:08:57.892Z',
-		closeDate: '2022-06-10T23:08:57.892Z',
 		votes: {
 			positive: 23,
 			negative: 36
@@ -35,8 +33,6 @@ const mockCelebrities = [
 		category: 'business',
 		picture: 'mark',
 		lastUpdated: '2021-02-14T23:10:19.134Z',
-		publishDate: '2022-05-08T23:08:57.892Z',
-		closeDate: '2022-06-10T23:08:57.892Z',
 		votes: {
 			positive: 418,
 			negative: 324
@@ -49,8 +45,6 @@ const mockCelebrities = [
 		category: 'politics',
 		picture: 'cristina',
 		lastUpdated: '2020-12-10T23:41:07.120Z',
-		publishDate: '2022-05-07T23:08:57.892Z',
-		closeDate: '2022-06-10T23:08:57.892Z',
 		votes: {
 			positive: 45,
 			negative: 97
@@ -63,8 +57,6 @@ const mockCelebrities = [
 		category: 'politics',
 		picture: 'malala',
 		lastUpdated: '2020-12-10T23:41:07.120Z',
-		publishDate: '2022-05-06T23:08:57.892Z',
-		closeDate: '2022-06-10T23:08:57.892Z',
 		votes: {
 			positive: 18,
 			negative: 3
@@ -77,8 +69,6 @@ const mockCelebrities = [
 		category: 'business',
 		picture: 'elon',
 		lastUpdated: '2020-12-20T23:43:38.041Z',
-		publishDate: '2022-05-05T23:08:57.892Z',
-		closeDate: '2022-06-10T23:08:57.892Z',
 		votes: {
 			positive: 1237,
 			negative: 894
@@ -91,8 +81,6 @@ const mockCelebrities = [
 		category: 'environment',
 		picture: 'greta',
 		lastUpdated: '2021-02-26T23:44:50.326Z',
-		publishDate: '2022-05-04T23:08:57.892Z',
-		closeDate: '2022-06-10T23:08:57.892Z',
 		votes: {
 			positive: 118,
 			negative: 45
@@ -100,4 +88,25 @@ const mockCelebrities = [
 	}
 ];
 
-export { mockCelebrities as celebrities };
+const celebrities = writable(mockCelebrities);
+
+const postVote = (currentCelebrity, vote) => {
+	celebrities.update((celebrities) => {
+		const celebrityIndex = celebrities.findIndex((c) => c.name === currentCelebrity.name);
+		if (celebrityIndex === -1) {
+			return celebrities;
+		}
+		const newCelebrity = { ...celebrities[celebrityIndex] };
+		if (vote === 'positive') {
+			newCelebrity.votes.positive += 1;
+		} else {
+			newCelebrity.votes.negative += 1;
+		}
+		let result = [...celebrities];
+		result.splice(celebrityIndex, 1, newCelebrity);
+		localStorage.setItem('celebrities', JSON.stringify(result));
+		return result;
+	});
+};
+
+export { celebrities, postVote };

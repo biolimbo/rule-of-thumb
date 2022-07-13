@@ -3,15 +3,20 @@
 	import ThumbsUp from '@icons/ThumbsUp.svelte';
 	import ThumbsDown from '@icons/ThumbsDown.svelte';
 
+	import { postVote } from '@contexts/celebrities.js';
+
 	export let celebrity;
 	export let mode = 'grid';
 
 	$: totalVotes = celebrity.votes.positive + celebrity.votes.negative;
 
 	$: percentages = {
-		positive: Math.ceil((celebrity.votes.positive / totalVotes) * 100),
-		negative: Math.floor((celebrity.votes.negative / totalVotes) * 100)
+		positive: Math.floor((celebrity.votes.positive / totalVotes) * 100),
+		negative: Math.ceil((celebrity.votes.negative / totalVotes) * 100)
 	};
+
+	let vote = null;
+	let alreadyVoted = false;
 </script>
 
 <div
@@ -47,9 +52,15 @@
 	/>
 
 	<div
-		class={`bg-thumbYellow p-2 absolute z-10 top-1/3 left-0 ${mode == 'grid' ? '' : ' md:top-0'}`}
+		class={` p-2 absolute z-10 top-1/3 left-0 ${mode == 'grid' ? '' : ' md:top-0'} ${
+			percentages.positive < 50 ? 'bg-thumbYellow' : 'bg-thumbEmerald'
+		}`}
 	>
-		<ThumbsDown class="w-6 h-auto" />
+		{#if percentages.positive >= 50}
+			<ThumbsUp class="w-6 h-auto" />
+		{:else}
+			<ThumbsDown class="w-6 h-auto" />
+		{/if}
 	</div>
 
 	<div
@@ -59,23 +70,60 @@
 	>
 		<div class={`flex flex-col mr-8 ${mode == 'grid' ? ' ' : 'md:ml-40 lg:ml-56'}`}>
 			<h3 class="line-clamp-2">{celebrity.name}</h3>
-			<p class="mb-3 md:mt-2 line-clamp-2">
+			<p class={`mb-3 line-clamp-2 ${mode == 'grid' ? ' md:mb-6' : 'md:mb-0 md:mt-2'}`}>
 				{celebrity.description}
 			</p>
 		</div>
 
 		<div class="flex flex-col items-end ml-auto">
-			<p class="text-xs font-medium">1 month ago in {celebrity.category}</p>
+			{#if alreadyVoted}
+				<p class="text-xs font-medium">Thank you for your vote!</p>
+			{:else}
+				<p class="text-xs font-medium">1 month ago in {celebrity.category}</p>
+			{/if}
 			<div class="flex mt-2 gap-3">
-				<button class="p-3 md:p-4 bg-thumbEmerald flex justify-center items-center">
-					<ThumbsUp class="w-4 lg:w-5 h-auto" />
-				</button>
-				<button class="p-3 md:p-4 bg-thumbYellow flex justify-center items-center">
-					<ThumbsUp class="w-4 lg:w-5 h-auto" />
-				</button>
-				<button class="border border-white bg-black/60 text-white px-4 py-2 w-max">
-					Vote now
-				</button>
+				{#if !alreadyVoted}
+					<button
+						on:click={() => {
+							vote = 'positive';
+						}}
+						class={`p-3 bg-thumbEmerald flex justify-center items-center border transition-all duration-200 ${
+							vote == 'positive' ? ' border-white' : ' border-transparent'
+						}`}
+					>
+						<ThumbsUp class="w-4 lg:w-5 h-auto" />
+					</button>
+					<button
+						on:click={() => {
+							vote = 'negative';
+						}}
+						class={`p-3 bg-thumbYellow flex justify-center items-center border transition-all duration-200 ${
+							vote == 'negative' ? ' border-white' : ' border-transparent'
+						}`}
+					>
+						<ThumbsDown class="w-4 lg:w-5 h-auto" />
+					</button>
+					<button
+						on:click={() => {
+							postVote(celebrity, vote);
+							alreadyVoted = true;
+							vote = null;
+						}}
+						disabled={vote == null}
+						class="border border-white bg-black/60 text-white px-4 py-3 w-max disabled:opacity-50 transition-all duration-200"
+					>
+						Vote now
+					</button>
+				{:else}
+					<button
+						on:click={() => {
+							alreadyVoted = false;
+						}}
+						class="border border-white bg-black/60 text-white px-4 py-3 w-max disabled:opacity-50 transition-all duration-200"
+					>
+						Vote again
+					</button>
+				{/if}
 			</div>
 		</div>
 	</div>
@@ -91,13 +139,13 @@
 			</div>
 			<div
 				style="width: {percentages.positive}%;"
-				class="absolute top-0 left-0 h-full bg-thumbEmerald/60 flex items-center px-3"
+				class="absolute top-0 left-0 h-full bg-thumbEmerald/60 flex items-center px-3 transition-all duration-500 ease-in-out"
 			>
 				<!--  -->
 			</div>
 			<div
 				style="width: {percentages.negative}%;"
-				class="absolute top-0 right-0 h-full bg-thumbYellow/60 flex items-center px-3"
+				class="absolute top-0 right-0 h-full bg-thumbYellow/60 flex items-center px-3 transition-all duration-500 ease-in-out"
 			>
 				<!--  -->
 			</div>

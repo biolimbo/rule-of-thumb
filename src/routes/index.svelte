@@ -1,4 +1,5 @@
 <script>
+	import { onMount } from 'svelte';
 	import HeroCard from '@components/HeroCard.svelte';
 	import Card from '@components/Card.svelte';
 	import Img from '@components/Img.svelte';
@@ -6,9 +7,19 @@
 	import { celebrities } from '@contexts/celebrities';
 
 	let displayMode = 'grid';
+
+	onMount(() => {
+		const localStorageCelebrities = localStorage.getItem('celebrities');
+
+		if (localStorageCelebrities) {
+			const localStorageCelebritiesParsed = JSON.parse(localStorageCelebrities);
+
+			$celebrities = localStorageCelebritiesParsed;
+		}
+	});
 </script>
 
-<HeroCard class=" pt-[66px] md:pt-[90px] lg:pt-[140px]" celebrity={celebrities[0]} />
+<HeroCard class=" pt-[66px] md:pt-[90px] lg:pt-[140px]" celebrity={$celebrities[0]} />
 
 <div class="container my-6 md:my-9">
 	<div class="flex gap-4 md:gap-6 bg-thumbGray-300 p-3 md:p-6">
@@ -41,7 +52,7 @@
 			displayMode == 'grid' ? 'md:grid grid-cols-2 lg:grid-cols-3' : 'md:flex-col'
 		}`}
 	>
-		{#each celebrities as celebrity, index}
+		{#each $celebrities as celebrity, index}
 			{#if index !== 0}
 				<Card mode={displayMode} class="" {celebrity} />
 			{/if}
