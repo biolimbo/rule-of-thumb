@@ -23,8 +23,16 @@
 		@apply !text-3xl md:!text-4xl lg:!text-5xl font-bold;
 	}
 
+	h2 {
+		@apply !text-2xl md:!text-3xl lg:!text-4xl font-bold;
+	}
+
 	h3 {
 		@apply !text-2xl md:!text-3xl  font-bold;
+	}
+
+	select {
+		@apply !border-2 !border-black !px-3 !py-2 min-w-[100px];
 	}
 
 	nav a {

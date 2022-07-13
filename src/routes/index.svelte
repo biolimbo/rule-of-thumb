@@ -4,6 +4,8 @@
 	import Img from '@components/Img.svelte';
 
 	import { celebrities } from '@contexts/celebrities';
+
+	let displayMode = 'grid';
 </script>
 
 <HeroCard class=" pt-[66px] md:pt-[90px] lg:pt-[140px]" celebrity={celebrities[0]} />
@@ -23,10 +25,25 @@
 </div>
 
 <div class="container overflow-hidden">
-	<div class="w-full flex overflow-x-auto overflow-y-hidden md:flex-col gap-4">
+	<div class="flex justify-between mb-5 md:mb-6 lg:mb-8">
+		<h2>Previous Rulings</h2>
+		<select
+			class="hidden md:block"
+			value={displayMode}
+			on:change={(e) => (displayMode = e.target.value)}
+		>
+			<option value="list">List</option>
+			<option value="grid">Grid</option>
+		</select>
+	</div>
+	<div
+		class={`w-full flex overflow-x-auto overflow-y-hidden  gap-4 ${
+			displayMode == 'grid' ? 'md:grid grid-cols-2 lg:grid-cols-3' : 'md:flex-col'
+		}`}
+	>
 		{#each celebrities as celebrity, index}
 			{#if index !== 0}
-				<Card class="" {celebrity} />
+				<Card mode={displayMode} class="" {celebrity} />
 			{/if}
 		{/each}
 	</div>

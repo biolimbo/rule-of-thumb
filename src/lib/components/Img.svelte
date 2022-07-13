@@ -1,7 +1,5 @@
 <script>
 	//
-
-	console.log('CHECKING PROPS', $$props);
 </script>
 
 <img
